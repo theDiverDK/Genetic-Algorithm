@@ -14,14 +14,9 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
-    def selection(self):
+    def crossover(self):
         pass
 
     @abstractmethod
-    def crossover(self):
-        pass
-    
-    @abstractmethod
     def mutate(self):
         pass
-    

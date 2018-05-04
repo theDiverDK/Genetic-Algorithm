@@ -4,12 +4,12 @@ from GeneticAlgorithm.Models.StringModel import StringModel
 
 def main():
     myNet = Network()
-    myNet.create(10, StringModel)
+    myNet.create(10, 0.2, StringModel)
 
     print(myNet)
-    
-    for agent in myNet.agents:
-        print(agent)
+
+    myNet.evaluate()
+    myNet.selection()
 
 
 if __name__ == '__main__':
