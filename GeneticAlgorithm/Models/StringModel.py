@@ -1,6 +1,6 @@
 import random
 import string
-from GeneticAlgorithm.BaseModel import BaseModel
+from GeneticAlgorithm.Models.BaseModel import BaseModel
 
 
 class StringModel(BaseModel):
@@ -13,6 +13,18 @@ class StringModel(BaseModel):
     def initialize(self):
         self.data = ''.join(random.SystemRandom().choice(
             string.ascii_uppercase) for _ in range(self.length))
+
+    def evaluate(self):
+        pass
+
+    def selection(self):
+        pass
+
+    def crossover(self):
+        pass
+    
+    def mutate(self):
+        pass
 
     def __str__(self):
         if self.data is None:

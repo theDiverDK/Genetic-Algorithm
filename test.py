@@ -1,13 +1,14 @@
 from GeneticAlgorithm.Network import Network
-
-from GeneticAlgorithm.StringModel import StringModel
+from GeneticAlgorithm.Models.StringModel import StringModel
 
 
 def main():
-    test = Network()
-    test.create(10, StringModel)
-    print(test)
-    for agent in test.agents:
+    myNet = Network()
+    myNet.create(10, StringModel)
+
+    print(myNet)
+    
+    for agent in myNet.agents:
         print(agent)
 
 
