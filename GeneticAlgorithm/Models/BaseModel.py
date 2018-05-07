@@ -14,7 +14,7 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
-    def crossover(self):
+    def crossover(self, other):
         pass
 
     @abstractmethod

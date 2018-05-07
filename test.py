@@ -6,11 +6,13 @@ def main():
     myNet = Network()
     myNet.create(10, 0.2, StringModel)
 
-    print(myNet)
-
     myNet.evaluate()
     myNet.selection()
+    print(myNet)
+    myNet.crossover()
+    print('After crossover\n')
+    print(myNet)
 
-
+    
 if __name__ == '__main__':
     main()

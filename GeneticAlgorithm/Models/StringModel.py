@@ -6,11 +6,14 @@ from GeneticAlgorithm.Models.BaseModel import BaseModel
 
 
 class StringModel(BaseModel):
-    def __init__(self, inputString):
+    def __init__(self, length):
         super(StringModel, self).__init__()
 
-        self.length = len(inputString)
+        self.length = length
         self.data = None
+        self.inputString = ''
+
+    def setInput(self, inputString):
         self.inputString = inputString
 
     def initialize(self):
@@ -20,10 +23,10 @@ class StringModel(BaseModel):
     def evaluate(self):
         self.fitness = fuzz.ratio(self.data, self.inputString)
 
-    def crossover(self):
+    def mutate(self):
         pass
 
-    def mutate(self):
+    def crossover(self):
         pass
 
     def __str__(self):
@@ -31,3 +34,6 @@ class StringModel(BaseModel):
             return 'Not initialized'
 
         return self.data + ', fitness = ' + str(self.fitness)
+
+   
+
