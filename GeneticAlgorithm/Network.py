@@ -30,26 +30,34 @@ class Network:
         self.agents = self.agents[:int(self.num * len(self.agents))]
 
     def crossover(self):
+        print('model',self.model)
         offspring = []
 
-        #for _ in range(int((self.population - len(self.agents)) / 2)):
-        parent1 = random.choice(self.agents)
-        parent2 = random.choice(self.agents)
-        child1 = self.model(parent1.length).initialize()
-        child2 = self.model(parent2.length).initialize()
-        split = random.randint(0,parent1.length)
+        for _ in range(int(len(self.agents)/2) % 2):
+            # Instead of pop, get random element
+            parent1 = self.agents.pop()  # random.choice(self.agents)
+            parent2 = self.agents.pop()  # random.choice(self.agents)
 
-        d1 = parent1.data[0:split] + parent2.data[split:parent1.length]
-        d2 = parent2.data[0:split] + parent1.data[split:parent2.length]
+            child1 = self.model(parent1.length)
+            child2 = self.model(parent1.length)
 
-        print(child1)
-        child1.data=d1
+            split = random.randint(0, parent1.length-1)
+            child1.data = parent1.data[0:split]+parent2.data[split:]
+            child2.data = parent2.data[0:split]+parent1.data[split:]
 
-        print(child1)
-        offspring.append(child1)
-        offspring.append(child2)
+            offspring.append(child1)
+            offspring.append(child2)
 
-        # self.agents.extend(offspring)
+        if(len(self.agents) > 0):
+            offspring.append(self.agents.pop())
+
+        self.agents = offspring
+
+        for _ in range(self.population-len(self.agents)):
+            agent = self.model(parent1.length)
+            agent.setInput(parent1.inputString)
+            agent.initialize()
+            self.agents.append(agent)
 
     def __str__(self):
         return 'Population of {}\n'.format(self.population) + '\n'.join([x.__str__() for x in self.agents])

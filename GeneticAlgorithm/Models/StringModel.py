@@ -7,6 +7,7 @@ from GeneticAlgorithm.Models.BaseModel import BaseModel
 
 class StringModel(BaseModel):
     def __init__(self, length):
+        print('net')
         super(StringModel, self).__init__()
 
         self.length = length
@@ -21,6 +22,7 @@ class StringModel(BaseModel):
             string.ascii_uppercase) for _ in range(self.length))
 
     def evaluate(self):
+        print('data', self.data, 'input', self.inputString)
         self.fitness = fuzz.ratio(self.data, self.inputString)
 
     def mutate(self):
@@ -33,7 +35,4 @@ class StringModel(BaseModel):
         if self.data is None:
             return 'Not initialized'
 
-        return self.data + ', fitness = ' + str(self.fitness)
-
-   
-
+        return self.data + ', fitness = ' + str(self.fitness)+', input = '+self.inputString

@@ -6,12 +6,14 @@ def main():
     myNet = Network()
     myNet.create(10, 0.2, StringModel)
 
-    myNet.evaluate()
-    myNet.selection()
-    print(myNet)
-    myNet.crossover()
-    print('After crossover\n')
-    print(myNet)
+
+    for x in range(2):
+        print('\nGeneration',x)
+        myNet.evaluate()
+        myNet.selection()
+        print('\nBefore crossover',myNet)
+        myNet.crossover()
+        print('\nAfter crossover',myNet)
 
     
 if __name__ == '__main__':
