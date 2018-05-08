@@ -4,22 +4,22 @@ from GeneticAlgorithm.Models.StringModel import StringModel
 
 def main():
     myNet = Network()
-    myNet.create(20, 0.4, StringModel)
+    myNet.create(100, 0.4, StringModel, 90)
 
-    for x in range(2000):
-        print('Generation', x)
-        # print('\nStart\n', myNet)
+    for x in range(200):
+        print('Generation', x, myNet.getTopFitness())
         myNet.evaluate()
-        # print('\nEvaluated\n', myNet)
         myNet.selection()
-        # print('\nSelected\n', myNet)
         myNet.crossover()
-        # print('\nCrossed\n', myNet)
         myNet.mutate()
-        # print('\nMutated\n', myNet)
+
+        if(myNet.goalReached()):
+            break
 
     myNet.evaluate()
+    myNet.sort()
     print('\nResult\n', myNet)
+
 
 if __name__ == '__main__':
     main()

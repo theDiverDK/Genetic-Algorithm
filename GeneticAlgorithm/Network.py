@@ -6,13 +6,14 @@ class Network:
         self.population = 0
         self.agents = []
 
-    def create(self, population, num, model):
+    def create(self, population, num, model, goal):
         self.population = population
         self.model = model
         self.num = num
+        self.goal = goal
 
         for _ in range(self.population):
-            input = 'SorenReinke'
+            input = 'I am ready to go diving'
             agent = self.model(len(input))
             agent.setInput(input)
             agent.initialize()
@@ -24,9 +25,11 @@ class Network:
             agent.evaluate()
 
     def selection(self):
-        self.agents = sorted(self.agents, key=lambda agent: agent.fitness, reverse=True)
-
+        self.sort()
         self.agents = self.agents[:int(self.num * len(self.agents))]
+
+    def sort(self):
+        self.agents = sorted(self.agents, key=lambda agent: agent.fitness, reverse=True)
 
     def crossover(self):
         siblings = []
@@ -52,32 +55,18 @@ class Network:
             siblings.append(child2)
 
         self.agents.extend(siblings)
-        # availableNodes = [x for x in range(0, len(self.agents))]
-        # while len(availableNodes) >= 2:
-        #     random.shuffle(availableNodes)
-
-        #     node1 = self.agents[availableNodes.pop()]
-        #     node2 = self.agents[availableNodes.pop()]
-
-        #     data1 = node1.data
-        #     data2 = node2.data
-
-        #     split = random.randint(0, len(data1) - 1)
-
-        #     node1.data = data1[0:split] + data2[split:]
-        #     node2.data = data1[0:split] + data2[split:]
-
-        # for _ in range(self.population - len(self.agents)):
-        #     temp=self.agents[0]
-        #     agent=self.model(len(temp.data))
-        #     agent.setInput(temp.inputString)
-        #     agent.initialize()
-
-        #     self.agents.append(agent)
 
     def mutate(self):
         for agent in self.agents:
             agent.mutate()
 
+    def getTopFitness(self):
+        return max([x.fitness for x in self.agents])
+
+    def goalReached(self):
+        return self.getTopFitness() >= self.goal
+
     def __str__(self):
-        return 'Population of {}\n'.format(self.population) + '\n'.join([x.__str__() for x in self.agents])
+        topAgent = self.agents[0]
+#        return 'Population of {}\n'.format(self.population) + '\n'.join([x.__str__() for x in self.agents])
+        return topAgent.data + ', ' + str(topAgent.fitness)

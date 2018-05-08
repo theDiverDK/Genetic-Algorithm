@@ -17,7 +17,7 @@ class StringModel(BaseModel):
         self.inputString = inputString
 
     def initialize(self):
-        self.data = ''.join(random.SystemRandom().choice(string.ascii_letters) for _ in range(self.length))
+        self.data = ''.join(random.SystemRandom().choice(string.ascii_letters + ' ') for _ in range(self.length))
 
     def evaluate(self):
         self.fitness = fuzz.ratio(self.data, self.inputString)
@@ -25,7 +25,7 @@ class StringModel(BaseModel):
     def mutate(self):
         for idx, param in enumerate(self.data):
             if random.uniform(0.0, 1.0) <= 0.1:
-                self.data = self.data[0:idx] + random.choice(string.ascii_letters) + self.data[idx + 1:]
+                self.data = self.data[0:idx] + random.choice(string.ascii_letters + ' ') + self.data[idx + 1:]
 
     def crossover(self):
         pass
