@@ -4,17 +4,22 @@ from GeneticAlgorithm.Models.StringModel import StringModel
 
 def main():
     myNet = Network()
-    myNet.create(10, 0.2, StringModel)
+    myNet.create(20, 0.4, StringModel)
 
-
-    for x in range(2):
-        print('\nGeneration',x)
+    for x in range(2000):
+        print('Generation', x)
+        # print('\nStart\n', myNet)
         myNet.evaluate()
+        # print('\nEvaluated\n', myNet)
         myNet.selection()
-        print('\nBefore crossover',myNet)
+        # print('\nSelected\n', myNet)
         myNet.crossover()
-        print('\nAfter crossover',myNet)
+        # print('\nCrossed\n', myNet)
+        myNet.mutate()
+        # print('\nMutated\n', myNet)
 
-    
+    myNet.evaluate()
+    print('\nResult\n', myNet)
+
 if __name__ == '__main__':
     main()

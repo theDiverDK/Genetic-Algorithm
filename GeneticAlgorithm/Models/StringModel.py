@@ -7,7 +7,6 @@ from GeneticAlgorithm.Models.BaseModel import BaseModel
 
 class StringModel(BaseModel):
     def __init__(self, length):
-        print('net')
         super(StringModel, self).__init__()
 
         self.length = length
@@ -18,15 +17,15 @@ class StringModel(BaseModel):
         self.inputString = inputString
 
     def initialize(self):
-        self.data = ''.join(random.SystemRandom().choice(
-            string.ascii_uppercase) for _ in range(self.length))
+        self.data = ''.join(random.SystemRandom().choice(string.ascii_letters) for _ in range(self.length))
 
     def evaluate(self):
-        print('data', self.data, 'input', self.inputString)
         self.fitness = fuzz.ratio(self.data, self.inputString)
 
     def mutate(self):
-        pass
+        for idx, param in enumerate(self.data):
+            if random.uniform(0.0, 1.0) <= 0.1:
+                self.data = self.data[0:idx] + random.choice(string.ascii_letters) + self.data[idx + 1:]
 
     def crossover(self):
         pass
@@ -35,4 +34,4 @@ class StringModel(BaseModel):
         if self.data is None:
             return 'Not initialized'
 
-        return self.data + ', fitness = ' + str(self.fitness)+', input = '+self.inputString
+        return self.data + ', fitness = ' + str(self.fitness)
