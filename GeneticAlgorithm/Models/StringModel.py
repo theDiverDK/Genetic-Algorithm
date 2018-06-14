@@ -4,7 +4,6 @@ import string
 from fuzzywuzzy import fuzz
 from GeneticAlgorithm.Models.BaseModel import BaseModel
 
-
 class StringModel(BaseModel):
     def __init__(self, length):
         super(StringModel, self).__init__()
@@ -17,18 +16,15 @@ class StringModel(BaseModel):
         self.inputString = inputString
 
     def initialize(self):
-        self.data = ''.join(random.SystemRandom().choice(string.ascii_letters + ' ') for _ in range(self.length))
+        self.data = ' ' * self.length#.join(random.SystemRandom().choice(string.ascii_letters + string.whitespace) for _ in range(self.length))
 
     def evaluate(self):
         self.fitness = fuzz.ratio(self.data, self.inputString)
 
     def mutate(self):
-        for idx, param in enumerate(self.data):
+        for idx, _ in enumerate(self.data):
             if random.uniform(0.0, 1.0) <= 0.1:
                 self.data = self.data[0:idx] + random.choice(string.ascii_letters + ' ') + self.data[idx + 1:]
-
-    def crossover(self):
-        pass
 
     def __str__(self):
         if self.data is None:

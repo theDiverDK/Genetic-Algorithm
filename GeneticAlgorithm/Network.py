@@ -13,7 +13,7 @@ class Network:
         self.goal = goal
 
         for _ in range(self.population):
-            input = 'I am ready to go diving'
+            input = 'abcdefghijklmnopqrstuvwxyz'
             agent = self.model(len(input))
             agent.setInput(input)
             agent.initialize()

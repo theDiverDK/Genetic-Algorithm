@@ -4,9 +4,9 @@ from GeneticAlgorithm.Models.StringModel import StringModel
 
 def main():
     myNet = Network()
-    myNet.create(100, 0.4, StringModel, 90)
+    myNet.create(100, 0.2, StringModel, 90)
 
-    for x in range(200):
+    for x in range(200000):
         print('Generation', x, myNet.getTopFitness())
         myNet.evaluate()
         myNet.selection()
