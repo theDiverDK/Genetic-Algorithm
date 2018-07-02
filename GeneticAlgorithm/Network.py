@@ -13,7 +13,7 @@ class Network:
         self.goal = goal
 
         for _ in range(self.population):
-            input = 'abcdefghijklmnopqrstuvwxyz'
+            input = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
             agent = self.model(len(input))
             agent.setInput(input)
             agent.initialize()
@@ -33,7 +33,6 @@ class Network:
 
     def crossover(self):
         siblings = []
-
         for _ in range(int((self.population - len(self.agents)) / 2)):
             parent1 = random.choice(self.agents)
             parent2 = random.choice(self.agents)
@@ -42,14 +41,20 @@ class Network:
 
             child1 = self.model(parent1.length)
             child1.setInput(parent1.inputString)
-            child1.initialize()
 
             child2 = self.model(parent1.length)
             child2.setInput(parent1.inputString)
-            child2.initialize()
 
-            child1.data = parent1.data[0:splitPoint] + parent2.data[splitPoint:]
-            child2.data = parent2.data[0:splitPoint] + parent1.data[splitPoint:]
+            splitPoint1 = random.randint(0, parent1.length - 1)
+            splitPoint2 = random.randint(0, parent1.length - 1)
+
+            if(splitPoint1 > splitPoint2):
+                splitPoint1, splitPoint2 = splitPoint2, splitPoint1
+            
+            child1.data = parent1.data[0:splitPoint1] + parent2.data[splitPoint1:splitPoint2] + parent1.data[splitPoint2:]
+            child2.data = parent2.data[0:splitPoint1] + parent1.data[splitPoint1:splitPoint2] + parent2.data[splitPoint2:]
+
+            print(child1.data, child2.data)
 
             siblings.append(child1)
             siblings.append(child2)

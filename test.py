@@ -1,12 +1,12 @@
-from GeneticAlgorithm.Network import Network
 from GeneticAlgorithm.Models.StringModel import StringModel
+from GeneticAlgorithm.Network import Network
 
 
 def main():
     myNet = Network()
-    myNet.create(100, 0.2, StringModel, 90)
+    myNet.create(200, 0.2, StringModel, 91)
 
-    for x in range(200000):
+    for x in range(10000):
         print('Generation', x, myNet.getTopFitness())
         myNet.evaluate()
         myNet.selection()
